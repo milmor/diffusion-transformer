@@ -22,6 +22,14 @@ python train.py --data_dir=./data/
 ## Hparams setting
 Adjust hyperparameters in the `config.py` file.
 
+Implementation notes:
+- minDiT is designed to offer reasonable performance using a single GPU (RTX 3080 TI).
+- minDiT largely follows the original DiT model.
+- DiT Block with adaLN-Zero.
+- Diffusion Transformer with [Linformer](https://arxiv.org/abs/2006.04768) attention.
+- [EDM](https://arxiv.org/abs/2206.00364) sampler.
+- [FID](https://arxiv.org/abs/1706.08500) evaluation.
+
 
 ## Licence
 MIT

@@ -1,3 +1,4 @@
+# minDiT hyperparameters
 config = {  
     'img_size': 32,
     'batch_size': 128,
@@ -5,12 +6,12 @@ config = {
     'dim': 256,
     'k': 64, # linformer dim
     'patch_size': 2,
-    'depth': 4, 
+    'depth': 2, 
     'heads': 4, 
-    'mlp_dim': 256, 
+    'mlp_dim': 128, 
     'fid_batch_size': 50, # inception 
     'gen_batch_size': 100,
-    'steps': 100,  # diff steps
+    'steps': 100,  # eval diff steps
     'ema_decay': 0.999,
     'n_fid_real': 2500,
     'n_fid_gen': 2500,
