@@ -40,8 +40,8 @@ class LinformerAttention(nn.Module):
 
     def forward(self, x):
         q = self.qw(x)
-        k = self.qw(x)
-        v = self.qw(x)
+        k = self.kw(x)
+        v = self.vw(x)
 
         B, L, D = q.shape
         q = torch.reshape(q, [B, L, self.n_heads, -1])

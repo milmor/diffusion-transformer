@@ -95,6 +95,7 @@ def train(model_dir, data_dir, fid_real_dir,
         start_iter = ckpt['iter'] + 1 # start from iter + 1
         best_fid = ckpt['best_fid']
         model.load_state_dict(ckpt['model'])
+        ema.load_state_dict(ckpt['ema'])
         optimizer.load_state_dict(ckpt['opt'])
         print(f'Checkpoint restored at iter {start_iter}; ' 
                 f'best FID: {best_fid}')
