@@ -133,5 +133,5 @@ def get_fid(real_dir, gen_dir, n_real, n_gen, device, batch_size=50):
         
     fid_value = calculate_frechet_distance(m1, s1, m2, s2)
     print(f'Time for FID is {time.time()-start:.4f} sec')
-    del inception
+    del inception, m1, s1, m2, s2
     return fid_value
