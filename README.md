@@ -21,9 +21,7 @@ python train.py --data_dir=./data/
 
 ## Samples
 - Sample output from minDiT (39.89M parameters) on CIFAR-10:
-<div style="text-align: center;">
-    <img src="./images/mindit_cifar.gif" width="650px">
-</div>
+<img src="./images/mindit_cifar.gif" width="650px"></img>
 
 
 ## Hparams setting
