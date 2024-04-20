@@ -28,6 +28,11 @@ Sample output from minDiT on CelebA:
 
 <img src="./images/mindit_celeba64.gif" width="850px"></img>
 
+Sample output from minDiT on CelebA:
+
+<img src="./images/myimage.gif" width="850px"></img>
+
+
 ## Hparams setting
 Adjust hyperparameters in the `config.py` file.
 
