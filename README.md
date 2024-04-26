@@ -42,9 +42,9 @@ Implementation notes:
 
 
 ## todo
-- Add Hourglass Diffusion methods.
 - Add Classifier-Free Diffusion Guidance and conditional pipeline.
-- Add Latent Diffusion.
+- Add Latent Diffusion and Autoencoder training.
+- Add generate.py file.
 
 
 ## Licence

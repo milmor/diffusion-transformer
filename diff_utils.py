@@ -53,8 +53,7 @@ class Diffusion(object):
         t_steps = get_sigmas_karras(steps, device=device, sigma_max=sigma_max)
         
         for i in range(len(t_steps) - 1):
-            x = self.edm_sampler(x, t_steps, i, model)
-            # If return_all is True, append the current state of x to images       
+            x = self.edm_sampler(x, t_steps, i, model)   
         return x.cpu()
 
     @torch.no_grad()
