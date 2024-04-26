@@ -32,15 +32,15 @@ def plot_batch(batch, plot_shape=(5, 10), fig_size=(5, 1.5), save_dir=None):
 
 class Config(object):
     def __init__(self, input_dict, save_dir):
-        for key, value in input_dict.items():
-            setattr(self, key, value)
         file_path = os.path.join(save_dir, "config.json")
-
         # Check if the configuration file exists
         if os.path.exists(file_path):
             self.load_config(file_path)
         else:
+            for key, value in input_dict.items():
+                setattr(self, key, value)
             self.save_config(file_path, save_dir)
+        self.print_variables()
 
     def save_config(self, file_path, save_dir):
         # Create the directory if it doesn't exist
@@ -60,3 +60,8 @@ class Config(object):
         for key, value in config_data.items():
             setattr(self, key, value)
         print(f'Config {file_path} loaded')
+
+    def print_variables(self):
+        # Print all variables (attributes) of the Config object
+        for key, value in vars(self).items():
+            print(f"{key}: {value}")

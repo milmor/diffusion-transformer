@@ -9,11 +9,14 @@ import numpy as np
     
 def _list_image_files(data_dir):
     results = []
-    for entry in sorted(os.listdir(data_dir)):
-        ext = entry.split(".")[-1]
-        if "." in entry and ext.lower() in ["jpg", "jpeg", "png", "gif"]:
-            full_path = os.path.join(data_dir, entry)
-            results.append(full_path)
+    # Walk through the directory and its subdirectories
+    for root, _, files in os.walk(data_dir):
+        for file in sorted(files):
+            ext = file.split(".")[-1]
+            if "." in file and ext.lower() in ["jpg", "jpeg", "png", "gif"]:
+                # Construct the full path of the file
+                full_path = os.path.join(root, file)
+                results.append(full_path)
     return results
 
 def InfiniteSampler(n):
