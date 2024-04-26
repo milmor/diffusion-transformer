@@ -29,7 +29,6 @@ Sample output from minDiT on CelebA:
 <img src="./images/mindit_celeba64.gif" width="550px"></img>
 
 
-
 ## Hparams setting
 Adjust hyperparameters in the `config.py` file.
 
@@ -40,6 +39,12 @@ Implementation notes:
 - Diffusion Transformer with [Linformer](https://arxiv.org/abs/2006.04768) attention.
 - [EDM](https://arxiv.org/abs/2206.00364) sampler.
 - [FID](https://arxiv.org/abs/1706.08500) evaluation.
+
+
+## todo
+- Add Hourglass Diffusion methods.
+- Add Classifier-Free Diffusion Guidance and conditional pipeline.
+- Add Latent Diffusion.
 
 
 ## Licence
