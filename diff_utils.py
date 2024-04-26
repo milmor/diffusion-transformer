@@ -37,13 +37,24 @@ class Diffusion(object):
         target = (y - c_skip * noised_input) / c_out
         return c_in * noised_input, sigma.squeeze(), target
 
-    def sample(self, model, sz, steps=100, sigma_max=80.):
+    def sample(self, model, sz, steps=100, sigma_max=80., seed=None):
+        # Set up seed and context manager
+        if seed is not None:
+            with torch.random.fork_rng():
+                torch.manual_seed(seed)
+                return self._sample_internal(model, sz, steps, sigma_max)
+        else:
+            return self._sample_internal(model, sz, steps, sigma_max)
+
+    def _sample_internal(self, model, sz, steps, sigma_max):
         device = next(model.parameters()).device
         model.eval()
         x = torch.randn(sz, device=device) * sigma_max
-        t_steps  = get_sigmas_karras(steps, device=device, sigma_max=sigma_max)
-        for i in (range(len(t_steps) - 1)):
+        t_steps = get_sigmas_karras(steps, device=device, sigma_max=sigma_max)
+        
+        for i in range(len(t_steps) - 1):
             x = self.edm_sampler(x, t_steps, i, model)
+            # If return_all is True, append the current state of x to images       
         return x.cpu()
 
     @torch.no_grad()
