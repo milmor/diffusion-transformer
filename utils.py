@@ -2,6 +2,7 @@ import torch
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import numpy as np
 import os
 import json
 
@@ -9,26 +10,34 @@ import json
 def deprocess(img):
     return img * 127.5 + 127.5
 
-def plot_batch(batch, plot_shape=(5, 10), fig_size=(5, 1.5), save_dir=None):
-    images = batch[:plot_shape[0] * plot_shape[1]]
-    fig, axes = plt.subplots(
-        plot_shape[0], plot_shape[1], 
-        figsize=fig_size
-    )
-    axes = axes.flatten()
-    images = images.to(torch.int32).clamp(min=0, max=255)
-    for i in range(len(images)):
-        axes[i].imshow(images[i].permute(1, 2, 0))
-        axes[i].axis('off')
+def plot_batch(tensor, plot_shape, filename, img_size=32):
+    tensor_np = tensor.permute(0, 2, 3, 1).numpy()
+    tensor_np = np.clip(tensor_np, 0, 255).astype(np.uint8)
+    rows = plot_shape[0]
+    columns = plot_shape[1]
+    # Proportional scale by img size
+    scale = (img_size / 90) 
+    fig, axes = plt.subplots(rows, columns, figsize=(columns * scale, rows * scale))
     
-    plt.subplots_adjust(
-        wspace=0, hspace=0, left=0, right=1, bottom=0, top=1
-    )
-    if save_dir:
-        plt.savefig(save_dir)
-        plt.close()
-    else:
-        plt.show()
+    # Iterate through each cell in the grid and plot images
+    for i in range(rows):
+        for j in range(columns):
+            # Calculate the index of the image
+            img_idx = i * columns + j
+            
+            # If the image index exceeds the number of images, stop plotting
+            if img_idx >= tensor_np.shape[0]:
+                break
+            
+            # Display the image in the respective subplot
+            ax = axes[i, j]
+            ax.imshow(tensor_np[img_idx])
+            ax.axis('off')
+    
+    # Adjust the layout to minimize whitespace
+    plt.subplots_adjust(wspace=0, hspace=0, left=0, right=1, bottom=0, top=1)
+    plt.savefig(filename)
+    plt.close()
 
 class Config(object):
     def __init__(self, input_dict, save_dir):

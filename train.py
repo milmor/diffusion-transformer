@@ -60,7 +60,6 @@ def train(model_dir, data_dir, fid_real_dir,
     n_fid_gen = conf.n_fid_gen
     n_iter = conf.n_iter
     plot_shape = conf.plot_shape
-    fig_size = conf.fig_size
     seed = conf.seed
 
     # dataset
@@ -134,10 +133,7 @@ def train(model_dir, data_dir, fid_real_dir,
             # plot
             gen_batch = diffusion.sample(ema, sz, steps=steps, seed=seed)
             plot_path = os.path.join(log_img_dir, f'{i:04d}.png')
-            plot_batch(
-                deprocess(gen_batch), plot_shape, 
-                fig_size, plot_path
-            )
+            plot_batch(deprocess(gen_batch), plot_shape, plot_path, img_size=img_size)
             # metrics
             train_loss /= iter_interval
             print(f'Time for iter {i} is {time.time()-start:.4f}'
