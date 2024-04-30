@@ -18,4 +18,5 @@ config = {
     'n_iter': 1000000000,
     'plot_shape': (5, 10),
     'fig_size': (5, 2.5),
+    'seed': 42
 }

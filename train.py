@@ -61,6 +61,7 @@ def train(model_dir, data_dir, fid_real_dir,
     n_iter = conf.n_iter
     plot_shape = conf.plot_shape
     fig_size = conf.fig_size
+    seed = conf.seed
 
     # dataset
     train_loader = create_loader(
@@ -131,7 +132,7 @@ def train(model_dir, data_dir, fid_real_dir,
 
         if i % iter_interval == 0:
             # plot
-            gen_batch = diffusion.sample(ema, sz, steps=steps)
+            gen_batch = diffusion.sample(ema, sz, steps=steps, seed=seed)
             plot_path = os.path.join(log_img_dir, f'{i:04d}.png')
             plot_batch(
                 deprocess(gen_batch), plot_shape, 
