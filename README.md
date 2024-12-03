@@ -19,14 +19,13 @@ Use `--data_dir=<data_dir>` to specify the dataset path.
 python train.py --data_dir=./data/
 ```
 
+
 ## Samples
 Sample output from minDiT (39.89M parameters) on CIFAR-10:
-
-<img src="./images/mindit_cifar.gif" width="650px"></img>
+<img src="./images/diff_cifar.png" width="550px"></img>
 
 Sample output from minDiT on CelebA:
-
-<img src="./images/mindit_celeba64.gif" width="550px"></img>
+<img src="./images/diff_celeba64.png" width="650px"></img>
 
 
 ## Hparams setting
