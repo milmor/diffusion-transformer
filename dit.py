@@ -88,20 +88,14 @@ class TransformerBlock(nn.Module):
         self.scale_1 = nn.Linear(dim, dim)
         self.scale_2 = nn.Linear(dim, dim)
 
-        nn.init.zeros_(self.gamma_1.weight)
-        nn.init.zeros_(self.beta_1.weight)
-        nn.init.zeros_(self.gamma_1.bias)
-        nn.init.zeros_(self.beta_1.bias)  
+        # Initialize weights to zero for modulation and gating layers
+        self._init_weights([self.gamma_1, self.beta_1, self.gamma_2, 
+                            self.beta_2, self.scale_1, self.scale_2])
 
-        nn.init.zeros_(self.gamma_2.weight)
-        nn.init.zeros_(self.beta_2.weight)
-        nn.init.zeros_(self.gamma_2.bias)
-        nn.init.zeros_(self.beta_2.bias)  
-
-        nn.init.zeros_(self.scale_1.weight)
-        nn.init.zeros_(self.scale_2.weight)
-        nn.init.zeros_(self.scale_1.bias)
-        nn.init.zeros_(self.scale_2.bias)  
+    def _init_weights(self, layers):
+        for layer in layers:
+            nn.init.zeros_(layer.weight)
+            nn.init.zeros_(layer.bias)
 
     def forward(self, x, c):
         #c = self.ln_act(c)
@@ -121,13 +115,14 @@ class FinalLayer(nn.Module):
         self.linear = nn.Linear(dim, patch_size * patch_size * out_channels, bias=True)
         self.gamma = nn.Linear(dim, dim)
         self.beta = nn.Linear(dim, dim)
-        # Zero-out output layers:
-        nn.init.zeros_(self.linear.weight)
-        nn.init.zeros_(self.gamma.weight)
-        nn.init.zeros_(self.beta.weight)
-        nn.init.zeros_(self.linear.bias)
-        nn.init.zeros_(self.gamma.bias)
-        nn.init.zeros_(self.beta.bias)        
+
+        # Initialize weights and biases to zero for modulation and linear layers
+        self._init_weights([self.linear, self.gamma, self.beta])
+
+    def _init_weights(self, layers):
+        for layer in layers:
+            nn.init.zeros_(layer.weight)
+            nn.init.zeros_(layer.bias)           
 
     def forward(self, x, c):
         scale = self.gamma(c)
