@@ -30,7 +30,7 @@ class Diffusion(object):
     def diffuse(self, y):
         device = y.device
         rnd_normal = torch.randn([y.shape[0], 1, 1, 1], device=device)
-        sigma = (rnd_normal * self.P_mean - self.P_std).exp()
+        sigma = (rnd_normal * self.P_std - self.P_mean).exp()
         n = torch.randn_like(y, device=device)
         c_skip, c_out, c_in = get_scalings(sigma, self.sigma_data)
         noised_input = y + n * sigma
